@@ -1,6 +1,7 @@
 #include "node.h"
 #include "Utilities.h"
 
+/* This creates a node! */
 void createNode(char* buffer, Node x[],int y)
 {
    sscanf(buffer, "%u, %u", &x[y].nodeID, &x[y].connCount);
