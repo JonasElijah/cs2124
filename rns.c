@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include "rns.h"
 #include "node.h"
-//#include "Utilities.h"
 
 
-//void getNode(struct node x[]);
+
+
 
 int main(int args, char* argv[])
 {
