@@ -3,10 +3,6 @@
 #include "rns.h"
 #include "node.h"
 
-
-
-
-
 int main(int args, char* argv[])
 {
     FILE* fIn = fopen("basic.ntwk", "r");
