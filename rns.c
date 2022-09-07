@@ -3,14 +3,16 @@
 #include "rns.h"
 #include "node.h"
 
-int main(int args, char* argv[])
+int main(int argc, char* argv[])
 {
-    FILE* fIn = fopen("basic.ntwk", "r");
+    struct commandLineParams cmdParams; 
+    parseCommandLine(argc, argv, &cmdParams);
+    FILE* fIn = fopen(cmdParams.fileName, "r");
     int numOfNodes = getNumOfNodes(fIn);
     struct node nodeList[numOfNodes];
     getNode(nodeList);
     
-    
+
     int idx = 0;
     while(idx != numOfNodes)
     {
@@ -20,4 +22,21 @@ int main(int args, char* argv[])
 
     return 0; 
 
+}
+
+unsigned int parseCommandLine(int argCount, char* argArray[], struct commandLineParams* z)
+{
+    int idx = 1;
+    for(; idx < argCount; idx++)
+    {
+        switch(argArray[idx][1])
+        {
+            case 'n': 
+                strcpy(z->fileName, argArray[idx+1]);
+                idx++;
+                break;
+        }
+    }
+    
+    return 0;
 }

@@ -3,7 +3,7 @@
 #define COMMENT_MARKER '#'
 void commentOut(char* x)
 {
-    char* comment = strchr(x,COMMENT_MARKER);//points to the address to where # is located,returns null is not found
+    char* comment = strchr(x,COMMENT_MARKER);//points to the address to where # is located, returns null is not found
     if(comment != 0)
      {
         size_t len = strlen(comment);//gets the length of comment and stores it in len
@@ -131,7 +131,6 @@ void getNode(Node x[])
         if(strchr(buffer,COMMA_MARKER)!= 0)
         {
             createNode(buffer, x, nodeNum);
-       
             if(x[nodeNum].nodeID == buffer[0])
             //If connection count is equal to zero then break out of while loop
             if(x[nodeNum].connCount == 0)
