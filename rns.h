@@ -3,7 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "node.h"
 
+#define DEFAULT_NETWORK_FILE "basic.ntwk"
 #define MAX_CHAR 256
 #define BUFFER_SIZE 1024
 
@@ -18,15 +20,26 @@ struct commandLineParams
 
 int getNumOfNodes(FILE* x)
 {
+    char buffer[BUFFER_SIZE];
+    char connection[BUFFER_SIZE];
     int num = 0;
     while(!feof(x))
     {
-    	char buffer[BUFFER_SIZE];
     	fgets(buffer, BUFFER_SIZE, x);
-    	if(strcmp(buffer, "endNode\r\n") == 0)
+        // if(strcmp(buffer, connection) == 0)
+        // {
+        //     return badFormat;
+        // }
+
+    	if(strncmp(buffer, "endNode", strlen("endNode")) == 0)
         {
             num++;
         }
+        
+        // if(buffer[0] != '#' && strchr(buffer,',') == 0 && strcmp(buffer, "endNode\r\n") == 0 && strcmp(buffer, "endNet\r\n") == 0)
+        // {
+        //    strset(connection, buffer);
+        // }
          
     }
     fclose(x);

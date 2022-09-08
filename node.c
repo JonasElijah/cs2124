@@ -17,7 +17,7 @@ void createNode(char* buffer, Node x[],int y)
 {
    sscanf(buffer, "%u, %u", &x[y].nodeID, &x[y].connCount);
    int connCountx = x[y].connCount;
-   x[y].listConn = (unsigned int*)malloc(x[y].connCount *sizeof(unsigned int));
+   x[y].listConn = (unsigned int*)malloc(connCountx *sizeof(unsigned int));
 }
 
 void getListconn(char* buffer, Node x[],int y, int i)
@@ -79,7 +79,7 @@ void getErrorString(int x)
    }
 }
 
-void getNode(Node x[])
+int getNode(Node x[])
 {
 //-----------------------------------------------//
 //  Opening file, initializing variable and      //
@@ -114,7 +114,7 @@ void getNode(Node x[])
         }
         
         //compares buffer to string endNode. If true, then increment nodeList array by 1 and set listConn array to element 0
-        if(strcmp(buffer, "endNode\r\n") == 0)
+        if(strncmp(buffer, "endNode", strlen("endNode")) == 0)
         {
             nodeNum++;
             connNum = 0;
@@ -122,7 +122,7 @@ void getNode(Node x[])
         }
 
         //compares buffer to string endNet. If true, then end while loop.
-        if(strcmp(buffer, "endNet\r\n") == 0)
+        if(strncmp(buffer, "endNet", strlen("endNet")) == 0)
         {
             break;
         }
@@ -131,7 +131,6 @@ void getNode(Node x[])
         if(strchr(buffer,COMMA_MARKER)!= 0)
         {
             createNode(buffer, x, nodeNum);
-            if(x[nodeNum].nodeID == buffer[0])
             //If connection count is equal to zero then break out of while loop
             if(x[nodeNum].connCount == 0)
             {
@@ -143,11 +142,19 @@ void getNode(Node x[])
         else
         {
             getListconn(buffer, x, nodeNum, connNum);
+
+            if(connNum != 0)
+            {
+               if(x[nodeNum].listConn[connNum] == x[nodeNum].listConn[connNum - 1])
+               {
+                  return badFormat;
+               }
+            }
             connNum++;
         }
  
     }
     
     fclose(fIn);
- 
+   return 0;
 }

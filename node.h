@@ -8,7 +8,7 @@
 #define BUFFER_SIZE 1024
 #define COMMA_MARKER ','
 
-enum errorCodes{emptyFile, noConn, createNodeError, getListconnError, destroyNodeError, printNodeError};
+enum errorCodes{emptyFile = 1, badFormat, noConn, createNodeError, getListconnError, destroyNodeError, printNodeError};
 
 typedef struct node Node;
 
@@ -19,7 +19,7 @@ struct node
     unsigned int* listConn;
 };
 
-void getNode(Node x[]);
+int getNode(Node x[]);
 void createNode(char* buffer, Node x[],int y);
 void getListconn(char* buffer, Node x[],int y, int i);
 void destroyNode(Node x[], int y);

@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
     parseCommandLine(argc, argv, &cmdParams);
     FILE* fIn = fopen(cmdParams.fileName, "r");
     int numOfNodes = getNumOfNodes(fIn);
-    struct node nodeList[numOfNodes];
+    Node nodeList[numOfNodes];
     getNode(nodeList);
     
 
@@ -27,6 +27,7 @@ int main(int argc, char* argv[])
 unsigned int parseCommandLine(int argCount, char* argArray[], struct commandLineParams* z)
 {
     int idx = 1;
+    // strcpy(z->fileName, DEFAULT_NETWORK_FILE);
     for(; idx < argCount; idx++)
     {
         switch(argArray[idx][1])
@@ -35,6 +36,7 @@ unsigned int parseCommandLine(int argCount, char* argArray[], struct commandLine
                 strcpy(z->fileName, argArray[idx+1]);
                 idx++;
                 break;
+            
         }
     }
     
