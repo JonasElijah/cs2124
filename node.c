@@ -48,32 +48,32 @@ void printNode(Node x)
 
 void getErrorString(int x)
 {
-   if(x == 0)
+   if(x == 1)
    {
       printf("Error: File is empty or doesn't exist\n");
    }
 
-   if(x == 1)
+   if(x == 2)
    {
       printf("Error: There should at least be one connection\n");
    }
 
-   if(x == 2)
+   if(x == 3)
    {
       printf("Error: createNode function used incorrectly\n");
    }
    
-   if(x == 3)
+   if(x == 4)
    {
       printf("Error: getListconn function used incorrectly\n");
    }
 
-   if(x == 4)
+   if(x == 5)
    {
       printf("Error: destroyNode function used incorrectly\n");
    }
 
-   if(x == 5)
+   if(x == 6)
    {
       printf("Error: printNode function used incorrtly\n");
    }

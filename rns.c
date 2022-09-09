@@ -12,6 +12,8 @@ int main(int argc, char* argv[])
     Node nodeList[numOfNodes];
     getNode(nodeList, cmdParams.fileName);
 
+    
+
     int idx = 0;
     while(idx != numOfNodes)
     {
