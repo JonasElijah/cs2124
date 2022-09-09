@@ -11,7 +11,6 @@ int main(int argc, char* argv[])
     int numOfNodes = getNumOfNodes(fIn);
     Node nodeList[numOfNodes];
     getNode(nodeList, cmdParams.fileName);
-    
 
     int idx = 0;
     while(idx != numOfNodes)
@@ -27,7 +26,7 @@ int main(int argc, char* argv[])
 unsigned int parseCommandLine(int argCount, char* argArray[], struct commandLineParams* z)
 {
     int idx = 1;
-    // strcpy(z->fileName, DEFAULT_NETWORK_FILE);
+    strcpy(z->fileName, DEFAULT_NETWORK_FILE);
     for(; idx < argCount; idx++)
     {
         switch(argArray[idx][1])
