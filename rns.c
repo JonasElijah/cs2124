@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
     FILE* fIn = fopen(cmdParams.fileName, "r");
     int numOfNodes = getNumOfNodes(fIn);
     Node nodeList[numOfNodes];
-    getNode(nodeList);
+    getNode(nodeList, cmdParams.fileName);
     
 
     int idx = 0;

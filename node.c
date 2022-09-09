@@ -79,13 +79,13 @@ void getErrorString(int x)
    }
 }
 
-int getNode(Node x[])
+int getNode(Node x[], char* y)
 {
 //-----------------------------------------------//
 //  Opening file, initializing variable and      //
 //  creating an array of structs called nodeList //                                            
 //-----------------------------------------------//
-    FILE* fIn = fopen("basic.ntwk", "r");
+    FILE* fIn = fopen(y, "r");
     enum errorCodes error;
     int connNum = 0, nodeNum = 0;
     
