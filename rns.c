@@ -6,13 +6,24 @@
 int main(int argc, char* argv[])
 {
     struct commandLineParams cmdParams; 
-    parseCommandLine(argc, argv, &cmdParams);
+    int status = parseCommandLine(argc, argv, &cmdParams);
+        
+    if(status != 0)
+    {
+	getErrorString(NO_CMD_LINE);
+        return NO_CMD_LINE;
+    }
+
     FILE* fIn = fopen(cmdParams.fileName, "r");
     int numOfNodes = getNumOfNodes(fIn);
     Node nodeList[numOfNodes];
-    getNode(nodeList, cmdParams.fileName);
-
+    int getNode_status =  getNode(nodeList, cmdParams.fileName);
     
+    if(getNode_status != 0)
+    {
+	getErrorString(getNode_status);
+	return getNode_status;
+    }
 
     int idx = 0;
     while(idx != numOfNodes)
@@ -20,7 +31,7 @@ int main(int argc, char* argv[])
         printNode(nodeList[idx]);
         idx++;
     }
-
+   
     return 0; 
 
 }
@@ -28,7 +39,11 @@ int main(int argc, char* argv[])
 unsigned int parseCommandLine(int argCount, char* argArray[], struct commandLineParams* z)
 {
     int idx = 1;
-    strcpy(z->fileName, DEFAULT_NETWORK_FILE);
+    if(argCount <= 1)
+    {
+        return NO_CMD_LINE;
+    }
+
     for(; idx < argCount; idx++)
     {
         switch(argArray[idx][1])
@@ -37,7 +52,11 @@ unsigned int parseCommandLine(int argCount, char* argArray[], struct commandLine
                 strcpy(z->fileName, argArray[idx+1]);
                 idx++;
                 break;
-            
+            case 'h': 
+         	return CMD_LINE_ERR;
+                break;
+            default:
+                return CMD_LINE_ERR;	                
         }
     }
     

@@ -1,38 +1,45 @@
 #include "node.h"
+#include "Utilities.h"
 
 #define COMMENT_MARKER '#'
-void commentOut(char* x)
-{
-    char* comment = strchr(x,COMMENT_MARKER);//points to the address to where # is located, returns null is not found
-    if(comment != 0)
-     {
-        size_t len = strlen(comment);//gets the length of comment and stores it in len
-        memset(comment, '\0' ,len);//sets all characters of comment to NULL
-        *comment = '\n';
-    }
-}
 
-
-void createNode(char* buffer, Node x[],int y)
+int createNode(char* buffer, Node x[],int y)
 {
    sscanf(buffer, "%u, %u", &x[y].nodeID, &x[y].connCount);
    int connCountx = x[y].connCount;
    x[y].listConn = (unsigned int*)malloc(connCountx *sizeof(unsigned int));
+   if(x[y].connCount == 0)
+   {
+	destroyNode(x,y);
+	return createNodeError;
+   }
+
+   return 0;
 }
 
-void getListconn(char* buffer, Node x[],int y, int i)
+int getListconn(char* buffer, Node x[],int y, int i)
 {
    sscanf(buffer, "%u", &x[y].listConn[i]);
+   if(i != 0)
+   {
+  	if(x[y].listConn[i] == x[y].listConn[i - 1])
+  	{
+        	return getListconnError;
+        }
+   }
+
+   return 0;
 }
 
-void destroyNode(Node x[], int y)
+int destroyNode(Node x[], int y)
 {
    x[y].nodeID = NULL_MARKER;
    x[y].connCount = NULL_MARKER;
    free(x[y].listConn);
+   return 0;
 }
 
-void printNode(Node x)
+int printNode(Node x)
 {
    printf("Node ID: %u\n", x.nodeID);
    printf("Connection Count: %u\n", x.connCount);
@@ -44,38 +51,49 @@ void printNode(Node x)
       index++;
       i++;
    }
+   return 0;
 }
 
 void getErrorString(int x)
 {
    if(x == 1)
    {
-      printf("Error: File is empty or doesn't exist\n");
+      printf("ERROR CODE 1: File is empty or doesn't exist\n");
    }
-
+	
    if(x == 2)
    {
-      printf("Error: There should at least be one connection\n");
+      printf("ERROR CODE 2: There should at least be one connection\n");
    }
 
    if(x == 3)
    {
-      printf("Error: createNode function used incorrectly\n");
+      printf("ERROR CODE 3: createNode function used incorrectly\n");
    }
    
    if(x == 4)
    {
-      printf("Error: getListconn function used incorrectly\n");
+      printf("ERROR CODE 4: getListconn function used incorrectly\n");
    }
 
    if(x == 5)
    {
-      printf("Error: destroyNode function used incorrectly\n");
+      printf("ERROR CODE 5: destroyNode function used incorrectly\n");
    }
 
    if(x == 6)
    {
-      printf("Error: printNode function used incorrtly\n");
+      printf("ERROR CODE 6: printNode function used incorrtly\n");
+   }
+
+   if(x == 7)
+   { 
+      printf("ERROR CODE 7: Bad file format\n");	
+   }
+
+   if(x == 8)
+   {
+      printf("ERROR CODE 8: The notation for the command line is -n {filename}");
    }
 }
 
@@ -86,13 +104,12 @@ int getNode(Node x[], char* y)
 //  creating an array of structs called nodeList //                                            
 //-----------------------------------------------//
     FILE* fIn = fopen(y, "r");
-    enum errorCodes error;
     int connNum = 0, nodeNum = 0;
-    
-    if(fIn == 0)// tests to see if file is empty
+ 
+    if(fIn == NULL)// tests to see if file is empty
     {
-        error = emptyFile;
-        getErrorString(error);
+        getErrorString(emptyFile);
+	return emptyFile;
     }
 
 //-----------------------------------------------//
@@ -130,26 +147,26 @@ int getNode(Node x[], char* y)
         //If comma exists in buffer, then initialize node struct with the values inside buffer
         if(strchr(buffer,COMMA_MARKER)!= 0)
         {
-            createNode(buffer, x, nodeNum);
-            //If connection count is equal to zero then break out of while loop
-            if(x[nodeNum].connCount == 0)
+            int createNode_status = createNode(buffer, x, nodeNum);
+            /*If connection count is equal to zero then break out of while loop*/
+            if(createNode_status != 0)
             {
-                error = noConn;
-                getErrorString(error);
-                break;
+                getErrorString(createNode_status);
+                return createNode_status;
             }
         }
         else
         {
-            getListconn(buffer, x, nodeNum, connNum);
+            int getListconn_status = getListconn(buffer, x, nodeNum, connNum);
 
-            if(connNum != 0)
+            if(getListconn_status != 0)
             {
-               if(x[nodeNum].listConn[connNum] == x[nodeNum].listConn[connNum - 1])
-               {
-                  return badFormat;
-               }
-            }
+            	getErrorString(getListconn_status);
+		return getListconn_status;
+	    }
+               
+                 
+               
             connNum++;
         }
  
