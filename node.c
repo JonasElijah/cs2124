@@ -99,38 +99,29 @@ void getErrorString(int x)
 
 int getNode(Node x[], char* y)
 {
-//-----------------------------------------------//
-//  Opening file, initializing variable and      //
-//  creating an array of structs called nodeList //                                            
-//-----------------------------------------------//
+
     FILE* fIn = fopen(y, "r");
     int connNum = 0, nodeNum = 0;
  
-    if(fIn == NULL)// tests to see if file is empty
+    if(fIn == NULL)
     {
         getErrorString(emptyFile);
 	return emptyFile;
     }
 
-//-----------------------------------------------//
-//  Reading text file line by line, stripping    //
-//  comments and initializing node structure     //
-//  members.                                     //      
-//-----------------------------------------------//
+
     char buffer[BUFFER_SIZE];
     while(!feof(fIn))
     {
-        fgets(buffer, BUFFER_SIZE, fIn); //reads a line from a stream then stores it in buffer
-        commentOut(buffer); //gets rid of comments
+        fgets(buffer, BUFFER_SIZE, fIn); 
+        commentOut(buffer); 
       
 
-        //tests to see if the first element of buffer is equal to either NULL or \n
         if(buffer[0] == NULL_MARKER || buffer[0] == '\n')
         {
             continue;
         }
         
-        //compares buffer to string endNode. If true, then increment nodeList array by 1 and set listConn array to element 0
         if(strncmp(buffer, "endNode", strlen("endNode")) == 0)
         {
             nodeNum++;
@@ -138,17 +129,14 @@ int getNode(Node x[], char* y)
             continue;
         }
 
-        //compares buffer to string endNet. If true, then end while loop.
         if(strncmp(buffer, "endNet", strlen("endNet")) == 0)
         {
             break;
         }
 
-        //If comma exists in buffer, then initialize node struct with the values inside buffer
         if(strchr(buffer,COMMA_MARKER)!= 0)
         {
             int createNode_status = createNode(buffer, x, nodeNum);
-            /*If connection count is equal to zero then break out of while loop*/
             if(createNode_status != 0)
             {
                 getErrorString(createNode_status);
