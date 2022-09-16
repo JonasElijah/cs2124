@@ -13,7 +13,6 @@
 
 enum networkState{nodeState};
 
-
 struct commandLineParams
 {
     char fileName[MAX_CHAR];
@@ -35,6 +34,62 @@ int getNumOfNodes(FILE* x)
     fclose(x);
 
     return num;   
+}
+
+int formatCheck(char* x)
+{
+	FILE* fIn = fopen(x, "r");
+	char buffer[BUFFER_SIZE];
+	int nodeIDCount = 0, connCounter = 0, listConnCount = 0, counter = 0;
+	while(!feof(fIn))
+	{
+		fgets(buffer, BUFFER_SIZE, fIn);
+		if(buffer[0] == '#')
+		{
+			continue;
+		}
+
+		if(strncmp(buffer, "endNet", strlen("endNet")) == 0)
+		{
+			if(!feof(fIn))
+			{
+				if(fgets(buffer, BUFFER_SIZE, fIn) == NULL)
+				{
+					fclose(fIn);
+					return 0;
+				}
+				return badFormat;
+			}
+			else
+			{
+				fclose(fIn);
+				return 0;
+			}
+		}
+
+		if(strncmp(buffer, "endNode", 7) == 0)
+		{
+			if(connCounter != listConnCount)
+			{
+				return badFormat;
+			}
+
+			connCounter = 0;
+			listConnCount = 0;
+			continue;
+		}
+
+		if((buffer[0] != '#') && (strchr(buffer, ',') != 0))
+		{
+			sscanf(buffer, "%d, %d", &nodeIDCount, &connCounter);
+			continue;
+		}
+		listConnCount++;
+				
+	}
+	fclose(fIn);
+	return 0;
+
 }
 
 unsigned int parseCommandLine(int argCount, char* argArray[], struct commandLineParams* z);

@@ -10,8 +10,8 @@ int createNode(char* buffer, Node x[],int y)
    x[y].listConn = (unsigned int*)malloc(connCountx *sizeof(unsigned int));
    if(x[y].connCount == 0)
    {
-	destroyNode(x,y);
-	return createNodeError;
+      destroyNode(x,y);
+      return createNodeError;
    }
 
    return 0;
@@ -102,20 +102,12 @@ int getNode(Node x[], char* y)
 
     FILE* fIn = fopen(y, "r");
     int connNum = 0, nodeNum = 0;
- 
-    if(fIn == NULL)
-    {
-        getErrorString(emptyFile);
-	return emptyFile;
-    }
-
 
     char buffer[BUFFER_SIZE];
     while(!feof(fIn))
     {
         fgets(buffer, BUFFER_SIZE, fIn); 
         commentOut(buffer); 
-      
 
         if(buffer[0] == NULL_MARKER || buffer[0] == '\n')
         {
