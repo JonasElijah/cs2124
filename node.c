@@ -1,6 +1,7 @@
 #include "node.h"
 #include "Utilities.h"
 
+
 #define COMMENT_MARKER '#'
 
 int createNode(char* buffer, Node x[],int y)
@@ -61,32 +62,32 @@ void getErrorString(int x)
       printf("ERROR CODE 1: File is empty or doesn't exist\n");
    }
 	
-   if(x == 2)
+   if(x == noConn)
    {
       printf("ERROR CODE 2: There should at least be one connection\n");
    }
 
-   if(x == 3)
+   if(x == createNodeError)
    {
       printf("ERROR CODE 3: createNode function used incorrectly\n");
    }
    
-   if(x == 4)
+   if(x == getListconnError)
    {
       printf("ERROR CODE 4: getListconn function used incorrectly\n");
    }
 
-   if(x == 5)
+   if(x == destroyNodeError)
    {
       printf("ERROR CODE 5: destroyNode function used incorrectly\n");
    }
 
-   if(x == 6)
+   if(x == printNodeError)
    {
       printf("ERROR CODE 6: printNode function used incorrtly\n");
    }
 
-   if(x == 7)
+   if(x == badFormat)
    { 
       printf("ERROR CODE 7: Bad file format\n");	
    }
@@ -94,6 +95,11 @@ void getErrorString(int x)
    if(x == 8)
    {
       printf("ERROR CODE 8: The notation for the command line is -n {filename}");
+   }
+
+   if(x == 9)
+   {
+      printf("ERROR CODE 9: The notation for the command line is -n {filename}");
    }
 }
 

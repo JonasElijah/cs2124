@@ -3,35 +3,27 @@
 #include "rns.h"
 #include "node.h"
 
+
 int main(int argc, char* argv[])
 {
     struct commandLineParams cmdParams; 
-    int status = parseCommandLine(argc, argv, &cmdParams);
-        
-    if(status != 0)
+    int cmdline_status = parseCommandLine(argc, argv, &cmdParams);
+    
+    if(cmdline_status != 0)
     {
-	    getErrorString(NO_CMD_LINE);
-        return NO_CMD_LINE;
+	    getErrorString(cmdline_status);
+        return cmdline_status;
     }
 
    int format_status = formatCheck(cmdParams.fileName);
    if(format_status != 0)
    {
-       printf("%d", format_status);
        getErrorString(format_status);
        return format_status;
    }
 
     FILE* fIn = fopen(cmdParams.fileName, "r");
-
-    if(fIn == NULL)
-    {
-        getErrorString(emptyFile);
-        return emptyFile;
-    }
- 
-  
-
+    
     int numOfNodes = getNumOfNodes(fIn);
     Node nodeList[numOfNodes];
     int getNode_status =  getNode(nodeList, cmdParams.fileName);
@@ -48,7 +40,14 @@ int main(int argc, char* argv[])
         printNode(nodeList[idx]);
         idx++;
     }
-   
+
+   idx = 0;
+   while(idx != numOfNodes)
+    {
+        destroyNode(nodeList, idx);
+        idx++;
+    }
+    
     return 0; 
 
 }
@@ -56,7 +55,7 @@ int main(int argc, char* argv[])
 unsigned int parseCommandLine(int argCount, char* argArray[], struct commandLineParams* z)
 {
     int idx = 1;
-    if(argCount <= 2)
+    if(argCount < MIN_COMMAND_LINE_ARGUMENTS)
     {
         return NO_CMD_LINE;
     }

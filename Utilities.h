@@ -17,7 +17,4 @@ void commentOut(char* x)
     }
 }
 
-
-
-
 #endif

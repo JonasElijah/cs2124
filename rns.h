@@ -10,6 +10,7 @@
 #define DEFAULT_NETWORK_FILE "basic.ntwk"
 #define MAX_CHAR 256
 #define BUFFER_SIZE 1024
+#define MIN_COMMAND_LINE_ARGUMENTS 3
 
 enum networkState{nodeState};
 
@@ -39,6 +40,10 @@ int getNumOfNodes(FILE* x)
 int formatCheck(char* x)
 {
 	FILE* fIn = fopen(x, "r");
+	if((fIn == NULL))
+        {
+    	    return emptyFile;
+        }
 	char buffer[BUFFER_SIZE];
 	int nodeIDCount = 0, connCounter = 0, listConnCount = 0, counter = 0;
 	while(!feof(fIn))
