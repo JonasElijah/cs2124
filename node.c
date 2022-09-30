@@ -1,17 +1,16 @@
 #include "node.h"
-#include "Utilities.h"
+#include "Util.h"
 
 
 #define COMMENT_MARKER '#'
 
-int createNode(char* buffer, Node x[],int y)
+int createNode(char* buffer, Node* x,int y)
 {
    sscanf(buffer, "%u, %u", &x[y].nodeID, &x[y].connCount);
    int connCountx = x[y].connCount;
    x[y].listConn = (unsigned int*)malloc(connCountx *sizeof(unsigned int));
    if(x[y].connCount == 0)
    {
-      destroyNode(x,y);
       return createNodeError;
    }
 
@@ -32,11 +31,16 @@ int getListconn(char* buffer, Node x[],int y, int i)
    return 0;
 }
 
-int destroyNode(Node x[], int y)
+
+int destroyNodes(Node x[], int y)
 {
-   x[y].nodeID = NULL_MARKER;
-   x[y].connCount = NULL_MARKER;
-   free(x[y].listConn);
+   x->nodeID = 0;
+   x->connCount = 0;
+   int count = 0;
+   for(;count < y; count++)
+   {
+      free(x[y].listConn);
+   }
    return 0;
 }
 
@@ -52,6 +56,7 @@ int printNode(Node x)
       index++;
       i++;
    }
+   printf("\n");
    return 0;
 }
 

@@ -17,6 +17,7 @@ enum networkState{nodeState};
 struct commandLineParams
 {
     char fileName[MAX_CHAR];
+	char simName[MAX_CHAR];
 };
 
 
@@ -37,13 +38,29 @@ int getNumOfNodes(FILE* x)
     return num;   
 }
 
+int getNumMessages(FILE* x)
+{
+	char buffer[BUFFER_SIZE];
+	int num = 0;
+	while(!feof(x))
+	{
+		int count = 0;
+		int i = 0;
+		
+		fgets(buffer,BUFFER_SIZE, x);
+		
+		if(buffer[0] != '#' && strstr(buffer,"msg") != 0 )
+		{
+			num++;
+		}
+	}
+	return num;
+}
+
+
 int formatCheck(char* x)
 {
 	FILE* fIn = fopen(x, "r");
-	if((fIn == NULL))
-        {
-    	    return emptyFile;
-        }
 	char buffer[BUFFER_SIZE];
 	int nodeIDCount = 0, connCounter = 0, listConnCount = 0, counter = 0;
 	while(!feof(fIn))

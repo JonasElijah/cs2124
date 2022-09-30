@@ -20,9 +20,9 @@ struct node
 };
 
 int getNode(Node x[], char* y);
-int createNode(char* buffer, Node x[],int y);
-int getListconn(char* buffer, Node x[],int y, int i);
-int destroyNode(Node x[], int y);
+int createNode(char* buffer, Node* x,int y);
+int getListconn(char* buffer, Node* x,int y, int i);
+int destroyNodes(Node x[], int y);
 int printNode(Node x);
 void getErrorString(int x);
 

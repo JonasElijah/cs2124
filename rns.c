@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "rns.h"
-#include "node.h"
-
+#include "sim.h"
 
 int main(int argc, char* argv[])
 {
@@ -26,7 +25,7 @@ int main(int argc, char* argv[])
     
     int numOfNodes = getNumOfNodes(fIn);
     Node nodeList[numOfNodes];
-    int getNode_status =  getNode(nodeList, cmdParams.fileName);
+    int getNode_status = getNode(nodeList, cmdParams.fileName);
     
     if(getNode_status != 0)
     {
@@ -41,12 +40,14 @@ int main(int argc, char* argv[])
         idx++;
     }
 
-   idx = 0;
-   while(idx != numOfNodes)
-    {
-        destroyNode(nodeList, idx);
-        idx++;
-    }
+    printf("\n");
+  
+    /*destroyNodes(nodeList, numOfNodes);*/
+    FILE* fIn2 = fopen(cmdParams.simName, "r");
+    int numOfMsg = getNumMessages(fIn2);
+    Sim simulation[numOfMsg];
+    int getMessages_Status = getSim(cmdParams.simName, simulation);
+    
     
     return 0; 
 
@@ -68,12 +69,21 @@ unsigned int parseCommandLine(int argCount, char* argArray[], struct commandLine
                 strcpy(z->fileName, argArray[idx+1]);
                 idx++;
                 break;
+            case's':
+                strcpy(z->simName, argArray[idx+1]);
+                idx++;
+                break;
             case 'h': 
          	return CMD_LINE_ERR;
             default:
                 return CMD_LINE_ERR;	                
         }
     }
-    
+
+    if((fopen(z->simName, "r") == 0) || (fopen(z->fileName, "r") == 0))
+    {
+        return emptyFile;
+    }
     return 0;
 }
+

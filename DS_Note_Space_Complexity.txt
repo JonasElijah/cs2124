@@ -1,0 +1,28 @@
+
+void printNet(Node net[], int count)   T(4): Integer variable  + T(4): for the address of net[] + [T(n) * T(k)] k = T(n)+3T(4)
+{
+    for(int i = 0; i < count; i++)    T(4): Integer variable
+    {
+        printNode(net[i]);  4T(n) + 7T(4)
+    }
+}
+
+void printNode(Node it) T(k)
+{
+    print("ID: ", it.ID);  T(4)
+    print("count", it.connCount);   T(4)
+    for(int i = u; i < connCount; i++) T(4)
+    {
+        print("connID: ", it.connList)  T(4)
+    }
+}
+
+T(k) + 3T(n) + 4T(4) = 4T(n) + 7T(4)
+
+
+########################################################################################################################################################3
+
+2T(4) +[T(n) * T(n) + 3T(4)] + T(4) + 4T(n) + 7T(4)
+T(n^2) + 3T(4n) + 4T(n) + 10T(4) 
+
+Worst case = O(n^2)
