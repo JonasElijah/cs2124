@@ -22,7 +22,7 @@ int getSim(char* x, Sim y[])
         }
        else if (buff[0] != '#' && strstr(buff,"rep") != 0)
        {
-            if(strchr((strstr(buff,"rep") + 1), ','))
+            if(strchr((strstr(buff,"rep") + 1), ',') != 0)
             {
                 unsigned int numID = getNodeID(buff);
                 int z = 0;
@@ -48,9 +48,11 @@ int getSim(char* x, Sim y[])
                     printSim(y[p]);
                 }
             }
+        
        }
        if(buff[0] != '#' && strstr(buff,"endSim") != 0 )
        {
+            flcose(f);
             printf("end the simulation");
        }
     }
