@@ -52,7 +52,7 @@ int getSim(char* x, Sim y[])
        }
        if(strstr(buff,"endSim") != 0 )
        {
-            printf("end the simulation");
+            printf("end the simulation\n");
        }
     }
     fclose(f);
