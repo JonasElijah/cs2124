@@ -50,13 +50,12 @@ int getSim(char* x, Sim y[])
             }
         
        }
-       if(buff[0] != '#' && strstr(buff,"endSim") != 0 )
+       if(strstr(buff,"endSim") != 0 )
        {
-            flcose(f);
             printf("end the simulation");
        }
     }
-    
+    fclose(f);
     return 0;
 }
 

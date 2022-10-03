@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
     
     if(cmdline_status != 0)
     {
-	    getErrorString(cmdline_status);
+        getErrorString(cmdline_status);
         return cmdline_status;
     }
 
