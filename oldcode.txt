@@ -1,0 +1,41 @@
+ /*  if(buff[0] != '#' && strstr(buff,"msg") != 0 )
+             {
+                 createSim(buff, y, msgCount);
+                 msgCount++;
+             }
+            else if (buff[0] != '#' && strstr(buff,"rep") != 0)
+            {
+                 if(strchr((strstr(buff,"rep") + 1), ',') != 0)
+                 {
+                     unsigned int numID = getNodeID(buff);
+                     int z = 0;
+                     if(y[z].messageID == numID)
+                         {
+                             printSim(y[z]);
+                         }
+                     while(y[z].messageID != numID)
+                     {
+                         if(y[z+1].messageID == numID)
+                         {
+                             printSim(y[z+1]);
+                         }
+                         z++;
+                     }
+
+                 }
+                 else
+                 {
+                     int p = 0;
+                     for(; p < msgCount; p++)
+                     {
+                         printSim(y[p]);
+                     }
+                 }
+
+            }
+            if(strstr(buff,"endSim") != 0 )
+            {
+                 printf("end the simulation\n");
+            }
+         }
+         fclose(f); */

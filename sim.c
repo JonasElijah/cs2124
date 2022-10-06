@@ -1,61 +1,86 @@
 #include "sim.h"
 #include "Util.h"
 
-int getSim(char* x, Sim y[])
+int getSim(char x[], Sim y[])
 {
+    bool endOfFile = false;
     FILE* f = fopen(x, "r");
     if(f == NULL)
         {
     	    return emptyFile;
         }
     
-    int msgCount = 0;
+    int msgCount = 0, z = 0;
     char buff[BUFFER_SIZE];
-    while(!feof(f))
+    while(!endOfFile)
     {
+        enum simulationCmd sim;
         fgets(buff, BUFFER_SIZE, f);
-        commentOut(buff);
-        if(buff[0] != '#' && strstr(buff,"msg") != 0 )
+        if(strchr(buff,'#') != 0)
         {
-            createSim(buff, y, msgCount);
-            msgCount++;
+            commentOut(buff);
+            continue;
         }
-       else if (buff[0] != '#' && strstr(buff,"rep") != 0)
-       {
-            if(strchr((strstr(buff,"rep") + 1), ',') != 0)
-            {
-                unsigned int numID = getNodeID(buff);
-                int z = 0;
-                if(y[z].messageID == numID)
-                    {
-                        printSim(y[z]);
-                    }
-                while(y[z].messageID != numID)
-                {  
-                    if(y[z+1].messageID == numID)
-                    {
-                        printSim(y[z+1]);
-                    }
-                    z++;
-                }
-             
-            }
-            else
-            {
-                int p = 0;
-                for(; p < msgCount; p++)
-                {
-                    printSim(y[p]);
-                }
-            }
-        
-       }
-       if(strstr(buff,"endSim") != 0 )
-       {
-            printf("end the simulation\n");
-       }
+
+        if(strstr(buff,"msg") != 0)
+        {
+            sim = msg;
+        }
+        else if (strstr(buff,"rep") != 0)
+        {
+            sim = rep;
+        }
+        else if(strstr(buff,"endSim") != 0)
+        {
+            sim = endSim;
+        }
+        else
+        {
+            printf("ERROR");
+        }
+
+        switch(sim)
+        {
+            case msg:
+                createSim(buff, y, msgCount, msg);
+                msgCount++;
+                break;
+            case rep:
+                if(strstr(buff,"rep,") != 0)
+                 {
+                     unsigned int numID = getNodeID(buff);
+                     if(y[z].messageID == numID)
+                         {
+                             printSim(y[z]);
+                         }
+                     while(y[z].messageID != numID)
+                     {
+                         if(y[z+1].messageID == numID)
+                         {
+                             printSim(y[z+1]);
+                         }
+                         z++;
+                     }
+
+                 }
+                 else
+                 {
+                     int p = 0;
+                     for(; p < msgCount; p++)
+                     {
+                         printSim(y[p]);
+                     }
+                 }
+
+                break;
+            case endSim:
+                printf("end the simulation\n");
+                fclose(f);
+                endOfFile = true;
+                break;
+        }
+  
     }
-    fclose(f);
     return 0;
 }
 
@@ -77,9 +102,14 @@ unsigned int getNodeID(char buff[])
     return x;
 }
 
-int createSim(char* buff, Sim* x, int y)
+int createSim(char* buff, Sim* x, int y, int sim)
 {
+    x[y].command = sim;
     sscanf(buff, "%u,msg,%u,%u,%u", &x[y].timestamp, &x[y].messageID, &x[y].start_node, &x[y].end_node);
     return 0;
 }
 
+int destroySim(Sim x)
+{
+    
+}

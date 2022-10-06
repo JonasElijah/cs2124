@@ -54,6 +54,7 @@ int getNumMessages(FILE* x)
 			num++;
 		}
 	}
+	fclose(x);
 	return num;
 }
 
