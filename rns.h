@@ -103,7 +103,7 @@ int formatCheck(char* x)
 		}
 
 		if((buffer[0] != '#') && (strchr(buffer, ',') != 0))
-		{
+		{ 
 			sscanf(buffer, "%d, %d", &nodeIDCount, &connCounter);
 			continue;
 		}

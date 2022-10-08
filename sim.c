@@ -18,8 +18,11 @@ int getSim(char x[], Sim y[])
         fgets(buff, BUFFER_SIZE, f);
         if(strchr(buff,'#') != 0)
         {
+	    if(buff[0] == '#')
+	    {
+		continue;
+	    }
             commentOut(buff);
-            continue;
         }
 
         if(strstr(buff,"msg") != 0)
@@ -111,5 +114,5 @@ int createSim(char* buff, Sim* x, int y, int sim)
 
 int destroySim(Sim x)
 {
-    
+
 }
