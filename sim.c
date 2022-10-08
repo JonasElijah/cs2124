@@ -1,6 +1,6 @@
 #include "sim.h"
 #include "Util.h"
-
+//your mom
 int getSim(char x[], Sim y[])
 {
     bool endOfFile = false;
