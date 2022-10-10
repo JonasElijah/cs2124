@@ -114,5 +114,5 @@ int createSim(char* buff, Sim* x, int y, int sim)
 
 int destroySim(Sim x)
 {
-
+    return 0;
 }
