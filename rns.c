@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "rns.h"
 #include "sim.h"
 
@@ -22,7 +20,9 @@ int main(int argc, char* argv[])
    }
 
     FILE* fIn = fopen(cmdParams.fileName, "r");
-    
+    if(fIn == 0)
+    	return emptyFile;
+
     int numOfNodes = getNumOfNodes(fIn);
     Node nodeList[numOfNodes];
     int getNode_status = getNode(nodeList, cmdParams.fileName);
@@ -44,11 +44,15 @@ int main(int argc, char* argv[])
   
     /*destroyNodes(nodeList, numOfNodes);*/
     FILE* fIn2 = fopen(cmdParams.simName, "r");
+    if(fIn2 == 0)
+    	return emptyFile;
+
     int numOfMsg = getNumMessages(fIn2);
     Sim simulation[numOfMsg];
     int getMessages_Status = getSim(cmdParams.simName, simulation);
     
-    
+    fclose(fIn);   
+    fclose(fIn2);
     return 0; 
 
 }
@@ -79,11 +83,12 @@ unsigned int parseCommandLine(int argCount, char* argArray[], struct commandLine
                 return CMD_LINE_ERR;	                
         }
     }
-
+    /*
     if((fopen(z->simName, "r") == 0) || (fopen(z->fileName, "r") == 0))
     {
         return emptyFile;
     }
+    */
     return 0;
 }
 

@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define COMMENT_MARKER '#'
 #define NULL_MARKER '\0'
 #define BUFFER_SIZE 1024
 #define COMMA_MARKER ','

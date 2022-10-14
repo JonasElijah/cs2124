@@ -17,9 +17,8 @@ enum networkState{nodeState};
 struct commandLineParams
 {
     char fileName[MAX_CHAR];
-	char simName[MAX_CHAR];
+    char simName[MAX_CHAR];
 };
-
 
 int getNumOfNodes(FILE* x)
 {
@@ -86,7 +85,7 @@ int formatCheck(char* x)
 			else
 			{
 				fclose(fIn);
-				return 0;
+				return badFormat;
 			}
 		}
 
