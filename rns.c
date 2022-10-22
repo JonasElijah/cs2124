@@ -11,21 +11,19 @@ int main(int argc, char* argv[])
         getErrorString(cmdline_status);
         return cmdline_status;
     }
-
    int format_status = formatCheck(cmdParams.fileName);
    if(format_status != 0)
    {
        getErrorString(format_status);
        return format_status;
    }
-
+    
+    int numOfNodes = getNumOfNodes(cmdParams.fileName);
+    Node nodeList[numOfNodes];
     FILE* fIn = fopen(cmdParams.fileName, "r");
     if(fIn == 0)
-    	return emptyFile;
-
-    int numOfNodes = getNumOfNodes(fIn);
-    Node nodeList[numOfNodes];
-    int getNode_status = getNode(nodeList, cmdParams.fileName);
+        return emptyFile;
+    int getNode_status = getNode(nodeList, fIn);
     
     if(getNode_status != 0)
     {
@@ -42,13 +40,11 @@ int main(int argc, char* argv[])
 
     printf("\n");
   
-    /*destroyNodes(nodeList, numOfNodes);*/
+    int numOfMsg = getNumMessages(cmdParams.simName);
+    Sim simulation[numOfMsg];
     FILE* fIn2 = fopen(cmdParams.simName, "r");
     if(fIn2 == 0)
     	return emptyFile;
-
-    int numOfMsg = getNumMessages(fIn2);
-    Sim simulation[numOfMsg];
     int getMessages_Status = getSim(cmdParams.simName, simulation);
     
     fclose(fIn);   

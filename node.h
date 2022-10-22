@@ -20,7 +20,7 @@ struct node
     unsigned int* listConn;
 };
 
-int getNode(Node x[], char* y);
+int getNode(Node x[], FILE* y);
 int createNode(char* buffer, Node* x,int y);
 int getListconn(char* buffer, Node* x,int y, int i);
 int destroyNodes(Node x[], int y);

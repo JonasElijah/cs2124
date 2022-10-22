@@ -3,14 +3,13 @@
 
 int createNode(char* buffer, Node* x,int y)
 {
-   sscanf(buffer, "%u, %u", &x[y].nodeID, &x[y].connCount);
+   sscanf(buffer, "%u, %u", &x[y].nodeID, &x[y].connCount); 
    int connCountx = x[y].connCount;
    x[y].listConn = (unsigned int*)malloc(connCountx *sizeof(unsigned int));
    if(x[y].connCount == 0)
    {
       return createNodeError;
    }
-
    return 0;
 }
 
@@ -104,18 +103,16 @@ void getErrorString(int x)
    }
 }
 
-int getNode(Node x[], char* y)
+int getNode(Node x[], FILE* y)
 {
-
-    FILE* fIn = fopen(y, "r");
+   
+    //FILE* fIn = fopen(y, "r");
     int connNum = 0, nodeNum = 0;
-
     char buffer[BUFFER_SIZE];
-    while(!feof(fIn))
+    while(!feof(y))
     {
-        fgets(buffer, BUFFER_SIZE, fIn); 
+        fgets(buffer, BUFFER_SIZE, y); 
         commentOut(buffer); 
-
         if(buffer[0] == NULL_MARKER || buffer[0] == '\n')
         {
             continue;
@@ -149,16 +146,13 @@ int getNode(Node x[], char* y)
             if(getListconn_status != 0)
             {
             	getErrorString(getListconn_status);
-		return getListconn_status;
-	    }
-               
-                 
-               
+               return getListconn_status;
+            }
             connNum++;
         }
  
     }
     
-    fclose(fIn);
+   //  fclose(fIn);
    return 0;
 }

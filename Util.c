@@ -1,14 +1,14 @@
 #include "Util.h"
 
-void commentOut(char* x)
+void commentOut(char* x) //Time T(n)  
 {
-    char* comment = strchr(x,COMMENT_MARKER);
-    if(comment != 0)
+    char* comment = strchr(x,COMMENT_MARKER); 
+    if(comment != 0) 
      {
-        size_t len = strlen(comment);
-        memset(comment, '\0' ,len);
+        size_t len = strlen(comment); 
+        memset(comment, '\0' ,len); 
         *comment = '\n';
-    }
+     }
 } 
 /*
 int findIndex(char buff[], int val)

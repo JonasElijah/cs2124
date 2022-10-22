@@ -1,5 +1,5 @@
-#include "sim.h"
 #include "Util.h"
+#include "sim.h"
 
 int getSim(char x[], Sim y[])
 {
@@ -18,10 +18,10 @@ int getSim(char x[], Sim y[])
         fgets(buff, BUFFER_SIZE, f);
         if(strchr(buff,'#') != 0)
         {
-	    if(buff[0] == '#')
-	    {
-		continue;
-	    }
+	        if(buff[0] == '#')
+	        {
+		        continue;
+	        }
             commentOut(buff);
         }
 

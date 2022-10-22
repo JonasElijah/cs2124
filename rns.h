@@ -20,40 +20,41 @@ struct commandLineParams
     char simName[MAX_CHAR];
 };
 
-int getNumOfNodes(FILE* x)
+int getNumOfNodes(char* x)
 {
+	FILE* fIn = fopen(x, "r");
     char buffer[BUFFER_SIZE];
     int num = 0;
-    while(!feof(x))
+    while(!feof(fIn))
     {
-    	fgets(buffer, BUFFER_SIZE, x);
+    	fgets(buffer, BUFFER_SIZE, fIn);
     	if(strncmp(buffer, "endNode", strlen("endNode")) == 0)
         {
             num++;
         }    
     }
-    fclose(x);
 
+	fclose(fIn);
     return num;   
 }
 
-int getNumMessages(FILE* x)
+int getNumMessages(char* x)
 {
+	FILE* fIn = fopen(x, "r");
 	char buffer[BUFFER_SIZE];
 	int num = 0;
-	while(!feof(x))
+	while(!feof(fIn))
 	{
 		int count = 0;
 		int i = 0;
 		
-		fgets(buffer,BUFFER_SIZE, x);
-		
+		fgets(buffer,BUFFER_SIZE, fIn);
 		if(buffer[0] != '#' && strstr(buffer,"msg") != 0 )
 		{
 			num++;
 		}
 	}
-	fclose(x);
+	fclose(fIn);
 	return num;
 }
 
@@ -62,7 +63,7 @@ int formatCheck(char* x)
 {
 	FILE* fIn = fopen(x, "r");
 	char buffer[BUFFER_SIZE];
-	int nodeIDCount = 0, connCounter = 0, listConnCount = 0, counter = 0;
+	int nodeIDCount = 0, connCounter = 0, listConnCount = 0, counter = 0, num = 0;
 	while(!feof(fIn))
 	{
 		fgets(buffer, BUFFER_SIZE, fIn);
@@ -98,6 +99,7 @@ int formatCheck(char* x)
 
 			connCounter = 0;
 			listConnCount = 0;
+			num++;
 			continue;
 		}
 
@@ -109,6 +111,7 @@ int formatCheck(char* x)
 		listConnCount++;
 				
 	}
+
 	fclose(fIn);
 	return 0;
 
