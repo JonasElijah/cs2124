@@ -20,8 +20,8 @@ int getListconn(char* buffer, Node x[],int y, int i)
    {
   	if(x[y].listConn[i] == x[y].listConn[i - 1])
   	{
-        	return getListconnError;
-        }
+      return getListconnError;
+   }
    }
 
    return 0;
