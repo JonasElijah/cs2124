@@ -16,14 +16,10 @@ int createNode(char* buffer, Node* x,int y)
 int getListconn(char* buffer, Node x[],int y, int i)
 {
    sscanf(buffer, "%u", &x[y].listConn[i]);
-   if(i != 0)
+   if(i != 0 && x[y].listConn[i] == x[y].listConn[i - 1])
    {
-  	if(x[y].listConn[i] == x[y].listConn[i - 1])
-  	{
-      return getListconnError;
+      	return getListconnError;
    }
-   }
-
    return 0;
 }
 
@@ -105,8 +101,6 @@ void getErrorString(int x)
 
 int getNode(Node x[], FILE* y)
 {
-   
-    //FILE* fIn = fopen(y, "r");
     int connNum = 0, nodeNum = 0;
     char buffer[BUFFER_SIZE];
     while(!feof(y))
@@ -152,7 +146,5 @@ int getNode(Node x[], FILE* y)
         }
  
     }
-    
-   //  fclose(fIn);
    return 0;
 }

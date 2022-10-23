@@ -112,7 +112,13 @@ int createSim(char* buff, Sim* x, int y, int sim)
     return 0;
 }
 
-int destroySim(Sim x)
+int destroySim(Sim x[])
 {
+    x->timestamp = 0;
+    x->command = 0;
+    x->messageID = 0;
+    x->messageID = 0;
+    x->start_node = 0;
+    x->end_node = 0;
     return 0;
 }

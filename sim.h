@@ -22,7 +22,7 @@ int printSim(Sim x);
 int findIndex(char buff[], int val);
 unsigned int getNodeID(char buff[]);
 int createSim(char* buff, Sim* x, int y, int sim);
-int destroySim(Sim x);
+int destroySim(Sim x[]);
 
 
 #endif
