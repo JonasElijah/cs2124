@@ -17,6 +17,7 @@ typedef struct simulation
     unsigned int end_node;
 }Sim;
 
+
 int getSim(char x[], Sim y[]);
 int printSim(Sim x);
 int findIndex(char buff[], int val);

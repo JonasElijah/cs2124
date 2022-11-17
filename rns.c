@@ -1,5 +1,7 @@
 #include "rns.h"
 #include "sim.h"
+#include "adjGraph.h"
+#include "queue.h"
 
 int main(int argc, char* argv[])
 {
@@ -30,6 +32,11 @@ int main(int argc, char* argv[])
         getErrorString(getNode_status);
         return getNode_status;
     }
+    Queue* nodeQueue = createQueue();
+    for(int count = 0; count < numOfNodes; count++)
+    {
+        enQueue(nodeQueue, &nodeList[count]);
+    }
 
     int idx = 0;
     while(idx != numOfNodes)
@@ -46,11 +53,16 @@ int main(int argc, char* argv[])
     if(fIn2 == 0)
     	return emptyFile;
     int getMessages_Status = getSim(cmdParams.simName, simulation);
+
+    Queue* messageQueue = createQueue();
+    for(int count = 0; count < numOfNodes; count++)
+    {
+        enQueue(messageQueue, &simulation[count]);
+    }
     
     fclose(fIn);   
     fclose(fIn2);
     return 0; 
-
 }
 
 unsigned int parseCommandLine(int argCount, char* argArray[], struct commandLineParams* z)
@@ -79,12 +91,6 @@ unsigned int parseCommandLine(int argCount, char* argArray[], struct commandLine
                 return CMD_LINE_ERR;	                
         }
     }
-    /*
-    if((fopen(z->simName, "r") == 0) || (fopen(z->fileName, "r") == 0))
-    {
-        return emptyFile;
-    }
-    */
     return 0;
 }
 

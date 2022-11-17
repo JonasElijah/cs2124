@@ -3,7 +3,7 @@
 
 int createNode(char* buffer, Node* x,int y)
 {
-   sscanf(buffer, "%u, %u", &x[y].nodeID, &x[y].connCount); 
+   sscanf(buffer, "%u,%u,%u", &x[y].nodeID, &x[y].connCount, &x[y].queueDelay); 
    int connCountx = x[y].connCount;
    x[y].listConn = (unsigned int*)malloc(connCountx *sizeof(unsigned int));
    if(x[y].connCount == 0)
