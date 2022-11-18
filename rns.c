@@ -33,7 +33,8 @@ int main(int argc, char* argv[])
         return getNode_status;
     }
     Queue* nodeQueue = createQueue();
-    for(int count = 0; count < numOfNodes; count++)
+    int count = 0;
+    for(; count < numOfNodes; count++)
     {
         enQueue(nodeQueue, &nodeList[count]);
     }
@@ -55,9 +56,10 @@ int main(int argc, char* argv[])
     int getMessages_Status = getSim(cmdParams.simName, simulation);
 
     Queue* messageQueue = createQueue();
-    for(int count = 0; count < numOfNodes; count++)
+    int count1 = 0;
+    for(; count1 < numOfNodes; count1++)
     {
-        enQueue(messageQueue, &simulation[count]);
+        enQueue(messageQueue, &simulation[count1]);
     }
     
     fclose(fIn);   
