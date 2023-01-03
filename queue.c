@@ -2,32 +2,36 @@
 
 Queue* createQueue()
 {
-   Queue* q = (Queue*)malloc(sizeof(Queue));
-   q->head = '\0';
-   q->tail = '\0'; 
+   Queue* q = (Queue*)malloc(sizeof(listADT));
+   q->head = NULL;
+   q->tail = NULL;
    return q;
 }
 
-int enQueue(Queue* q, void* m)
+int enQueue(Queue* q, void* d)
 {
-   Message* temp = (Message*)malloc(sizeof(Message));
-   temp->data = m;
-   temp->next = '\0';
-
-   if(q->tail == '\0')
+   listADT* temp = (listADT*)malloc(sizeof(listADT));
+   temp->data = d;
+   temp->next = NULL;
+   
+   if(q->tail == NULL && q->head == NULL)
    {
       q->head = temp;
       q->tail = temp;
    }
-
-   q->tail->next = temp;
-   q->tail = temp;
+   else
+   {
+        q->tail->next = temp;
+        q->tail = temp;
+   }
+   
    return 0;
 }
 
-Message* deQueue(Queue* q)
+int deQueue(Queue* q)
 {
-   Message* temp = q->head;
+   listADT* temp = q->head;
    q->head = q->head->next;
-   return temp;
+   free(temp);
+   return 0;
 }

@@ -1,21 +1,23 @@
 #ifndef QUEUE_H
-#define QUEUE_h
+#define QUEUE_H
+
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef struct message
+typedef struct listADT
 {
     void* data;
-    struct message* next;
-}Message;
+    struct listADT* next;
+}listADT;
 
 typedef struct queue
 {
-    struct message* head;
-    struct message* tail;
+    struct listADT* head;
+    struct listADT* tail;
 }Queue;
 
+
 Queue* createQueue();
-int enQueue(Queue* q, void* m);
-Message* deQueue(Queue* q);
+int enQueue(Queue* q, void* d);
+int deQueue();
 #endif
